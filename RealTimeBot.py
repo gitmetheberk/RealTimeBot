@@ -135,7 +135,10 @@ async def on_message(message):
         logging.error("Aborting time conversion for user {} due to invalid userStatus return".format(message.author.id))
         return
     elif userStatus is 0:
-        await message.channel.send("Howdy, {}! If you would like to opt-in to automatic timezone conversion for your messages, use '-timezone est|cst|mt|pst' to set your timezone".format(message.author.name))
+        await message.channel.send("Howdy, {}! If you would like to opt-in to automatic timezone conversion for your "
+                                   "messages, use '-timezone est|cst|mt|pst' to set your timezone"
+                                    .format(message.author.name))
+        return
     elif userStatus is 1:
         # User has opted out, return
         logging.info("Ignoring message, user has opted out")
@@ -463,6 +466,8 @@ def createInactiveRecord(userID, guildID):
     guilds[guildID]["users"][str(userID)] = {}
     guilds[guildID]["users"][str(userID)]["timezone"] = None
     guilds[guildID]["users"][str(userID)]["active"] = False
+
+    updateGuilds(guildID)
 
 
 # Run the bot
