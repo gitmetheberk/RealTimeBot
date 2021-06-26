@@ -32,7 +32,8 @@ logging.basicConfig(filename="RealTimeBot.log",
                     datefmt='%Y-%m-%d %H:%M:%S',
                     format='%(asctime)s %(levelname)-8s %(message)s')
 
-logging.getLogger().addHandler(logging.StreamHandler())  # Log to console as well as the file
+# Will cause all output to log to console for the remainder of any SSH sessions
+#logging.getLogger().addHandler(logging.StreamHandler())  # Log to console as well as the file
 
 # Word List & Regex Setup -----------------------------------------------------------------
 # TODO Add ability to modify these lists with commands
@@ -42,14 +43,14 @@ words_after_positive = ["am", "pm", "to"]
 
 # Lists of words which may indicate the detection is not a match
 words_before_negative = ["in"]
-words_after_negative = ["minutes", "hours", "minute", "hour", "min", "mins", "days", "weeks", "months", "years"]
+words_after_negative = ["minutes", "hours", "minute", "hour", "min", "mins", "days", "weeks", "months", "years", "percent", "%", "k",]
 
 # If SAFEMODE is disabled, add some riskier words
 if not SAFEMODE:
     words_before_positive.extend(['', "like"])
 
 # Regex patterns for the on_message handler
-timeMatch_regex = re.compile("(\\b\\w*\\b)?\\s*([0-9]{1,2}:[0-9]{1,2}|[0-9]{1,4})\\s?([a-z]+|$)?", re.IGNORECASE)
+timeMatch_regex = re.compile("(\\b\\w*\\b)?\\s*([0-9]{1,2}:[0-9]{1,2}|[0-9]{1,4})\\s?([a-z]+|$|.?)?", re.IGNORECASE)
 timeMatch_removeDecimal = re.compile("[0-9]+\\.[0-9]+")
 
 # Bot initialization
