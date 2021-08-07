@@ -12,15 +12,12 @@ MAX_FAILURES=10
 PING_FAILURES=0
 
 # Loop while we're not online.
-IS_ONLINE=check_online
+IS_ONLINE=$(check_online)
+
 while [ $IS_ONLINE -eq 0 ]; do
     # We're offline. Sleep for a bit, then check again
-
     sleep 10;
-    IS_ONLINE=check_online
-
-    echo "In while loop post sleep"
-    date
+    IS_ONLINE=$(check_online)
 
     PING_FAILURES=$[ $PING_FAILURES + 1 ]
     if [ $PING_FAILURES -gt $MAX_FAILURES ]; then
