@@ -32,6 +32,6 @@ if [ $IS_ONLINE -eq 0 ]; then
 fi
 
 # Start the bot
-(cd /root/RealTimeBot && python3 RealTimeBot.py &)
+(cd /root/RealTimeBot && python3 RealTimeBot.py) &
 echo "run_bot.sh succeeded, bot has been initialized"
 ps -aux | grep "RealTimeBot.py"
